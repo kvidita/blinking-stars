@@ -7,16 +7,15 @@ const getRandomNumber = (extreme) => {
 }
 
 const createStars = () => {
-  const stars = [];
   const starsCount = Math.floor(Math.random() * 20);
 
-  for (let i = 0; i < starsCount; i++) {
+  const stars = new Array(starsCount).fill().map(() => {
     const x = getRandomNumber(process.stdout.columns);
     const y = getRandomNumber(process.stdout.rows / 2);
     const lifeTime = getRandomNumber(10) * 5;
     const star = new Stars([x, y], lifeTime);
-    stars.push(star);
-  }
+    return star;
+  });
   return stars;
 }
 
