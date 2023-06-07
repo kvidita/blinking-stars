@@ -6,33 +6,40 @@ const getRandomNumber = (extreme) => {
   return Math.floor(Math.random() * extreme);
 }
 
+const createStar = () => {
+  const column = getRandomNumber(process.stdout.columns);
+  const row = getRandomNumber(process.stdout.rows / 2);
+  const lifeTime = getRandomNumber(10) * 5;
+  const star = new Stars({ column, row }, lifeTime);
+  return star;
+}
+
 const createStars = () => {
   const starsCount = Math.floor(Math.random() * 20);
-
-  const stars = new Array(starsCount).fill().map(() => {
-    const x = getRandomNumber(process.stdout.columns);
-    const y = getRandomNumber(process.stdout.rows / 2);
-    const lifeTime = getRandomNumber(10) * 5;
-    const star = new Stars([x, y], lifeTime);
-    return star;
-  });
+  const stars = Array.from({ length: starsCount }, createStar)
   return stars;
+}
+
+const addNewStars = (stars) => {
+  return () => {
+    const newStars = createStars();
+    stars.push(...newStars);
+  };
+}
+
+const updateAndDisplayStar = (stars) => {
+  return () => {
+    stars.forEach((star) => {
+      star.updateLifetime();
+      displayStar(star);
+    });
+  };
 }
 
 const twinckleStars = () => {
   const stars = createStars();
-  setInterval(() => {
-    stars.map((star) => star.updateLifetime())
-    stars.forEach((star) => {
-      displayStar(star);
-    })
-  }, 100);
-
-  setInterval(() => {
-    const newStars = createStars();
-    stars.push(...newStars);
-  }, 1000);
-
+  setInterval(updateAndDisplayStar(stars), 100);
+  setInterval(addNewStars(stars), 1000);
 };
 
 const main = () => {
@@ -40,5 +47,3 @@ const main = () => {
 }
 
 main();
-
-
