@@ -1,4 +1,4 @@
-class Stars {
+class Star {
   #lifetime
   #position
 
@@ -36,4 +36,4 @@ class Stars {
 
 }
 
-exports.Stars = Stars
+exports.Star = Star;
