@@ -1,4 +1,5 @@
-const { updateAndDisplay, createStars } = require("./src/stars-blinker.js")
+const { createStars } = require("./src/stars-blinker.js");
+const { updateAndDisplay } = require("./src/displayer.js");
 const { exec } = require("node:child_process");
 
 const twinckleStars = () => {

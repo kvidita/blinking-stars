@@ -1,10 +1,5 @@
 const { Star } = require("./star.js");
-const { getBorder } = require("./border.js");
-const { displayBorder, displayStar } = require("./displayer.js");
-
-const getRandomNumber = (extreme) => {
-  return Math.floor(Math.random() * extreme);
-}
+const { getRandomNumber } = require("../lib/randomNum.js");
 
 const createStar = () => {
   const column = getRandomNumber(process.stdout.columns);
@@ -20,12 +15,4 @@ const createStars = () => {
   return stars;
 }
 
-const updateAndDisplay = (stars) => {
-  stars.forEach((star) => {
-    star.updateLifetime();
-    displayStar(star);
-  });
-}
-
-exports.updateAndDisplay = updateAndDisplay;
 exports.createStars = createStars;
